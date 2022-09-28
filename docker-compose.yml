@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  mssql-server-2022:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: exert-mssql-server-2022
+    restart: always
+    cap_add:
+      - SYS_PTRACE
+    ports:
+      - '1433:1433'
+    volumes:
+      - ./docker/2022:/var/opt/mssql/data
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=sa.pass00.word11
+      # SQL Server 版本： Express、Web、Standard、Enterprise、Developer
+      - MSSQL_PID=Developer
+      # 默认字符集
+      # - MSSQL_COLLATION=
+    networks: 
+      - exert-mssql-net
+  mssql-server-2017:
+    image: mcr.microsoft.com/mssql/server:2017-GA-ubuntu
+    container_name: exert-mssql-server-2017
+    restart: always
+    cap_add:
+      - SYS_PTRACE
+    ports:
+      - '11433:1433'
+    volumes:
+      - ./docker/2017:/var/opt/mssql/data
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=sa.pass00.word11
+      - MSSQL_PID=Developer
+    networks: 
+      - exert-mssql-net
+
+networks: 
+  exert-mssql-net:
+    name: exert-mssql-net
+    driver: bridge
