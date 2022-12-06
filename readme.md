@@ -1,5 +1,13 @@
 # exert sqlserver
 
+```sql
+/* 查询连接 */
+SP_WHO
+
+/* 杀死指定ID的连接 */
+KILL <id>
+```
+
 ## Docker Linux
 
 ```bash
